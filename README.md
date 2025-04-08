@@ -67,7 +67,7 @@ Instead:
 This is a learning project to practice DevOps tools like **Jenkins**, **Docker**, and **CI/CD** pipelines.
 
 ---
-![Screenshot 2025-04-08 153705](https://github.com/user-attachments/assets/8cf361e0-7487-4416-a8ac-f6b6de873b56)
+
 
 ![Screenshot 2025-04-08 153149](https://github.com/user-attachments/assets/651c255a-3509-4b24-a9f4-58465ef34e70)
 ![Screenshot 2025-04-08 153136](https://github.com/user-attachments/assets/19c32c6e-8cbd-4bf7-8fac-26d278c57dd0)
