@@ -1,72 +1,122 @@
-# 🚀 Simple Node.js App CI/CD Pipeline with Jenkins & Docker
 
-This project demonstrates a complete CI/CD pipeline using **Jenkins (running in Docker)** to build and manage a **Node.js** app with Docker.
+# Simple Node.js App CI/CD with Jenkins and Docker
 
----
-
-## ✅ Project Overview
-
-The project includes:
-- Node.js application source code.
-- A `Dockerfile` to containerize the app.
-- A `Jenkinsfile` defining the CI/CD pipeline.
-
-All code files are available in this GitHub repository.
+This project sets up a complete CI/CD pipeline using Jenkins to automate the build, test, and deployment of a simple Node.js application. The pipeline is defined using a `Jenkinsfile` and is triggered automatically on each code commit to the GitHub repository.
 
 ---
 
-## 🔧 Setup Instructions
+## 📦 Project Overview
 
-### 1. Run Jenkins in Docker
-
-Make sure to run Jenkins with Docker socket mounting to allow Docker commands inside Jenkins.
-
-### 2. Install Jenkins Plugins
-- Docker Pipeline
-- Git Plugin
-- Pipeline
-
-### 3. Configure GitHub Credentials in Jenkins
-
-> 🔐 **Important Note: Do NOT directly use just the GitHub repository URL without credentials.**
-
-Instead:
-
-1. Go to **Jenkins → Manage Jenkins → Credentials → System → Global Credentials (unrestricted)**.
-2. Click on **"Add Credentials"**.
-   - **Kind**: `Username with password`
-   - **Username**: Your GitHub username
-   - **Password**: Your GitHub personal access token (not your password)
-   - **ID**: (e.g., `github-creds`) — remember this ID
-3. In your pipeline setup, **use this credentials ID** to access the repository securely.
-
-### 4. Create a Jenkins Pipeline Job
-
-- Go to Jenkins dashboard
-- Click **"New Item" → Pipeline**
-- Under **Pipeline script from SCM**:
-  - SCM: `Git`
-  - URL: `https://github.com/your-username/simple-app.git`
-  - Credentials: Select the ID you created (e.g., `github-creds`)
+- **App Type:** Simple Node.js application
+- **CI/CD Tool:** Jenkins
+- **Containerization:** Docker
+- **Source Code:** GitHub
+- **Build Trigger:** Webhook from GitHub to Jenkins
 
 ---
 
-## 📌 Notes
+## 🔧 Project Setup Steps
 
-- This setup assumes Docker is installed and properly configured on the host machine.
-- Jenkins should have access to Docker via volume mount: `/var/run/docker.sock:/var/run/docker.sock`
-- If you get `docker: not found` errors inside Jenkins, it's likely due to:
-  - Missing Docker socket mount
-  - Permissions issue
-  - Jenkins running in a container without Docker access
+### 1. Install & Setup Jenkins
+
+- Installed Jenkins (locally or in Docker)
+- Installed required plugins:
+  - Git Plugin
+  - GitHub Integration
+  - Docker Pipeline
+
+### 2. Clone This Repo
+
+```bash
+git clone https://github.com/your-username/simple-node-app.git
+cd simple-node-app
+```
 
 ---
 
-## 🙌 Acknowledgement
+## 🔐 GitHub Credentials in Jenkins
 
-This is a learning project to practice DevOps tools like **Jenkins**, **Docker**, and **CI/CD** pipelines.
+> ⚠️ **Important:** Do not rely on only the GitHub repo URL in Jenkins. You must configure proper credentials.
+
+### Steps:
+
+1. Go to **Jenkins → Manage Jenkins → Credentials**
+2. Add your **GitHub Username and Personal Access Token** as credentials
+3. In your Jenkins job:
+   - Choose **Git** as the SCM
+   - Set the repo URL (HTTPS)
+   - Select the credential you created
 
 ---
+
+## 🐳 Docker Configuration
+
+- Make sure Docker is installed and the Jenkins user has access to Docker.
+- If Jenkins is running inside a container, Docker must also be available **inside** the container (Docker-in-Docker or mounting Docker socket).
+
+---
+
+## 📝 Jenkinsfile
+
+The `Jenkinsfile` in the repo defines the following stages:
+- **Build** – builds Docker image
+- **Test** – (can be customized)
+- **Deploy** – runs the container
+
+---
+
+## 🔁 GitHub Webhook
+
+To trigger Jenkins on every commit:
+1. Go to your GitHub repo → Settings → Webhooks
+2. Add this URL:
+
+```
+http://<your-ngrok-or-public-IP>/github-webhook/
+```
+
+3. Set content type to `application/json`
+4. Leave **secret field blank** or set if using with Jenkins credentials plugin
+5. Make sure your Jenkins job has the trigger:
+   - ☑️ GitHub hook trigger for GITScm polling
+
+---
+
+## ✅ Testing the Pipeline
+
+- Commit and push a change to GitHub
+- Confirm webhook is delivered successfully
+- Jenkins pipeline should start automatically
+
+---
+
+## 📌 Note on GitHub Actions
+
+> If GitHub Actions are running instead of Jenkins:
+- Ensure that Jenkins webhook is hitting `/github-webhook/`
+- Ensure `Jenkinsfile` is not confused with `.github/workflows/*`
+- Disable GitHub Actions if not needed to avoid confusion
+
+---
+
+## 📸 Screenshots
+
+Include images of:
+- Jenkins dashboard
+- Build stages
+- Docker image created
+- GitHub webhook delivery success
+
+---
+
+## 📁 Repository
+
+Source code and `Jenkinsfile` are available here:  
+👉 [GitHub Repository](https://github.com/your-username/simple-node-app)
+
+---
+
+## 🙌 Credits
 
 
 ![Screenshot 2025-04-08 153149](https://github.com/user-attachments/assets/651c255a-3509-4b24-a9f4-58465ef34e70)
