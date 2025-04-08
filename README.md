@@ -45,7 +45,7 @@ cd simple-node-app
 3. In your Jenkins job:
    - Choose **Git** as the SCM
    - Set the repo URL (HTTPS)
-   - Select the credential you created
+   - Select the credential you created.
 
 ---
 
